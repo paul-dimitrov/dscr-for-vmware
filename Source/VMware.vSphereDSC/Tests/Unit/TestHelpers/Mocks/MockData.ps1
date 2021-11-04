@@ -368,6 +368,26 @@ $script:constants = @{
     IScsiHbaStaticTargetType = 'Static'
     IScsiName = 'iqn.com.vmware:esx-server'
     IScsiNameTwo = 'iqn.com.vmware:esx-server-two'
+    CpuExpandableReservation = $true
+    CpuExpandableReservation2 = $false
+    CpuLimitMHz = 100
+    CpuLimitMHz2 = 200
+    CpuReservationMHz = 100
+    CpuReservationMHz2 = 200
+    CpuSharesLevelCustom = 'Custom'
+    CpuSharesLevelLow = 'Low'
+    NumCpuShares = 100
+    NumCpuShares2 = 200
+    MemExpandableReservation = $true
+    MemExpandableReservation2 = $false
+    MemLimitGB = 2
+    MemLimitGB2 = 3
+    MemReservationGB = 2
+    MemReservationGB2 = 3
+    MemSharesLevelCustom = 'Custom'
+    MemSharesLevelLow = 'Low'
+    NumMemShares = 100
+    NumMemShares2 = 200
 }
 
 $script:credential = New-Object System.Management.Automation.PSCredential($script:constants.VIServerUser, $script:constants.VIServerPassword)
@@ -1691,4 +1711,20 @@ $script:iScsiHbaTarget = [VMware.VimAutomation.ViCore.Impl.V1.Host.Storage.IScsi
         MutualChapEnabled = $script:constants.MutualChapEnabled
         MutualChapName = $script:constants.MutualChapName
     }
+}
+
+$script:resourcePool = [VMware.VimAutomation.ViCore.Impl.V1.Inventory.ResourcePoolImpl] @{
+    Id = $script:constants.ResourcePoolId
+    Name = $script:constants.ResourcePoolName
+    ParentId = $script:constants.InventoryItemLocationItemTwoId
+    CpuExpandableReservation = $script:constants.CpuExpandableReservation
+    CpuLimitMHz = $script:constants.CpuLimitMHz
+    CpuReservationMHz = $script:constants.CpuReservationMHz
+    CpuSharesLevel = $script:constants.CpuSharesLevelCustom
+    NumCpuShares = $script:constants.NumCpuShares
+    MemExpandableReservation = $script:constants.MemExpandableReservation
+    MemLimitGB = $script:constants.MemLimitGB
+    MemReservationGB = $script:constants.MemReservationGB
+    MemSharesLevel = $script:constants.MemSharesLevelCustom
+    NumMemShares = $script:constants.NumMemShares
 }

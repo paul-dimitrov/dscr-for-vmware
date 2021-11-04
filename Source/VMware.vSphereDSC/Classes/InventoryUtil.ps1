@@ -45,6 +45,8 @@ class InventoryUtil {
     hidden [string] $CouldNotFindFolderMessage = "Could not find Folder {0} located in Folder {1}."
     hidden [string] $CouldNotFindInventoryItemMessage = "Could not find Inventory Item {0} located in Inventory Item {1}."
     hidden [string] $CouldNotFindDatastoreClusterMessage = "Could not find Datastore Cluster {0} located in Folder {1}."
+    hidden [string] $CouldNotFindResourcePool = "Could not find ResourcePool {0}. For more information {1}."
+    hidden [string] $CouldNotFindResourcePoolLocation = "Could not find ResourcePool location {0}. For more information {1}."
 
     <#
     .DESCRIPTION
@@ -424,6 +426,53 @@ class InventoryUtil {
         }
         finally {
             $global:VerbosePreference = $savedVerbosePreference
+        }
+    }
+
+    <#
+    .DESCRIPTION
+
+    Retrieves the Resource pool location
+    #>
+    [PSObject] GetResourcePoolParent($resourcePoolLocation){
+        $locationItems = $resourcePoolLocation.Split('/')
+        $parent = Get-Inventory -Name $locationItems[0] -Server $this.VIServer
+        try {
+            for ($i=1; $i -lt ($locationItems.Count); $i++) {
+                $parent = Get-Inventory -Location $parent -Name $locationItems[$i]
+            }
+            return $parent
+        } catch {
+            throw ($this.CouldNotFindResourcePoolLocation -f $resourcePoolLocation, $_.Exception.Message)
+        }
+    }
+
+    <#
+    .DESCRIPTION
+
+    Retrieves the Resource pool with the specified name from the server if it exists.
+    If the resource pool does not exist and Ensure is set to 'Absent', $null is returned.
+    Otherwise the method throws an exception.
+    #>
+    [PSObject] GetResourcePool($ResourcePoolName, $resourcePoolLocation){
+        $parent = $this.GetResourcePoolParent($resourcePoolLocation)
+
+        $getResourcePoolParams = @{
+            Location = $parent
+            Name = $ResourcePoolName
+        }
+
+        if ($this.Ensure -eq [Ensure]::Absent) {
+            $getResourcePoolParams.ErrorAction = 'SilentlyContinue'
+        }
+        else {
+            $getResourcePoolParams.ErrorAction = 'Stop'
+        }
+
+        try {
+            return Get-ResourcePool @getResourcePoolParams
+        } catch {
+            throw ($this.CouldNotFindResourcePool -f $parent.Name, $_.Exception.Message)
         }
     }
 }
