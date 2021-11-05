@@ -47,18 +47,18 @@ function New-MocksWhenEnsurePresentNonExistingResourcePoolParentIsResourcePool {
 
     Mock `
       -CommandName Get-Inventory -MockWith {return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
- 
+      -Verifiable
+
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
       -ParameterFilter {
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
-   
+
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $null }.GetNewClosure() `
       -ParameterFilter {
@@ -100,7 +100,7 @@ function New-MocksWhenEnsurePresentNonExistingResourcePoolandAllSettingsSpecifie
       -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
+      -Verifiable
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
@@ -108,7 +108,7 @@ function New-MocksWhenEnsurePresentNonExistingResourcePoolandAllSettingsSpecifie
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
-   
+
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $null }.GetNewClosure() `
       -ParameterFilter {
@@ -118,7 +118,7 @@ function New-MocksWhenEnsurePresentNonExistingResourcePoolandAllSettingsSpecifie
 
     Mock `
       -CommandName New-ResourcePool -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and `
          $Location -eq $script:resourcePool -and `
          $CpuExpandableReservation -eq $script:constants.CpuExpandableReservation -and `
@@ -150,8 +150,8 @@ function New-MocksWhenEnsurePresentExistingResourcePoolOnlyNameAndLocationSpecif
       -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
- 
+      -Verifiable
+
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
       -ParameterFilter {
@@ -195,8 +195,8 @@ function New-MocksWhenEnsurePresentExistingResourcePoolAndAllSettingsSpecified {
       -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
- 
+      -Verifiable
+
     Mock `
       -CommandName Get-Inventory -MockWith {return $resourcePoolMock }.GetNewClosure() `
       -ParameterFilter {
@@ -246,7 +246,7 @@ function New-MocksWhenEnsureAbsentAndExistingResourcePool {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
       -Verifiable
- 
+
     Mock `
       -CommandName Get-Inventory -MockWith {return $resourcePoolMock }.GetNewClosure() `
       -ParameterFilter {
@@ -256,7 +256,7 @@ function New-MocksWhenEnsureAbsentAndExistingResourcePool {
 
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and $Location -eq $script:resourcePool
       } `
       -Verifiable
@@ -277,27 +277,27 @@ function New-MocksWhenEnsureAbsentAndNonExistingResourcePool {
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
- 
+      -Verifiable
+
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
-   
+
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $null }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and $Location -eq $script:resourcePool
       } `
       -Verifiable
-      
+
     Mock -CommandName Remove-ResourcePool -MockWith { return $null }.GetNewClosure()
-    
+
     $resourcePoolProperties
 }
 
@@ -311,21 +311,21 @@ function New-MocksWhenEnsurePresentAndNonExistingResourcePool {
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
+      -Verifiable
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
 
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $null }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and $Location -eq $script:resourcePool
       } `
       -Verifiable
@@ -354,22 +354,22 @@ function New-MocksWhenEnsurePresentExistingResourcePoolAndMatchingSettings {
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
- 
-    
+      -Verifiable
+
+
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
 
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and $Location -eq $script:resourcePool
       } `
       -Verifiable
@@ -431,21 +431,21 @@ param(
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
       -Verifiable
-    
+
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
 
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and $Location -eq $script:resourcePool
       } `
       -Verifiable
@@ -464,21 +464,21 @@ function New-MocksInTestWhenEnsureAbsentAndExistingResourcePool {
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
-      -Verifiable    
+      -Verifiable
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.InventoryItemLocationItemTwo -and $Location -eq $script:resourcePool
       } `
       -Verifiable
-   
+
     Mock `
       -CommandName Get-ResourcePool -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Name -eq $script:constants.ResourcePoolName -and $Location -eq $script:resourcePool
       } `
       -Verifiable
@@ -507,11 +507,11 @@ function New-MocksInGetWhenEnsurePresentAndNonExistingResourcePool {
 
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
-      -ParameterFilter { 
+      -ParameterFilter {
          $Server -eq $script:viServer -and $Name -eq $script:constants.InventoryItemLocationItemOne
       } `
       -Verifiable
-    
+
     Mock `
       -CommandName Get-Inventory -MockWith { return $resourcePoolMock }.GetNewClosure() `
       -ParameterFilter {

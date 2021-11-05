@@ -86,7 +86,7 @@ InModuleScope -ModuleName $script:moduleName {
                     Assert-VerifiableMock
                 }
 
-                
+
                 It 'Should call the New-ResourcePool mock with all settings specified once' {
                     # Act
                     $resource.Set()
@@ -95,7 +95,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $assertMockCalledParams = @{
 
                         CommandName = 'New-ResourcePool'
-                        ParameterFilter = { 
+                        ParameterFilter = {
                            $Name -eq $script:constants.ResourcePoolName -and `
                            $Location -eq $script:resourcePool -and `
                            $CpuExpandableReservation -eq $script:constants.CpuExpandableReservation -and `
@@ -133,16 +133,16 @@ InModuleScope -ModuleName $script:moduleName {
                     Assert-VerifiableMock
                 }
 
-                
+
                 It 'Should call the Set-ResourcePool mock specified once' {
                     # Act
                     $resource.Set()
 
                     # Assert
-                    
+
                     $assertMockCalledParams = @{
                         CommandName = 'Set-ResourcePool'
-                        ParameterFilter = { 
+                        ParameterFilter = {
                            $ResourcePool -eq $script:resourcePool
                         }
                         Exactly = $true
@@ -176,7 +176,7 @@ InModuleScope -ModuleName $script:moduleName {
                     # Assert
                     $assertMockCalledParams = @{
                         CommandName = 'Set-ResourcePool'
-                        ParameterFilter = { 
+                        ParameterFilter = {
                            $ResourcePool -eq $script:resourcePool -and `
                            $CpuExpandableReservation -eq $script:constants.CpuExpandableReservation -and `
                            $CpuLimitMHz -eq $script:constants.CpuLimitMHz -and `
@@ -340,7 +340,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching CpuLimitMHz' {
                 BeforeAll {
                     # Arrange
@@ -364,7 +364,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching CpuReservationMHz' {
                 BeforeAll {
                     # Arrange
@@ -388,7 +388,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching CpuSharesLevel' {
                 BeforeAll {
                     # Arrange
@@ -412,7 +412,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching NumCpuShares' {
                 BeforeAll {
                     # Arrange
@@ -436,7 +436,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching MemExpandableReservation' {
                 BeforeAll {
                     # Arrange
@@ -483,7 +483,7 @@ InModuleScope -ModuleName $script:moduleName {
                     # Assert
                     $result | Should -Be $false
                 }
-            }            
+            }
 
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching MemReservationGB' {
                 BeforeAll {
@@ -532,7 +532,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Present, existing ResourcePool and non matching NumMemShares' {
                 BeforeAll {
                     # Arrange
@@ -556,7 +556,7 @@ InModuleScope -ModuleName $script:moduleName {
                     $result | Should -Be $false
                 }
             }
-            
+
             Context 'Invoking with Ensure Absent and non existing ResourcePool' {
                 BeforeAll {
                     # Arrange
@@ -581,7 +581,7 @@ InModuleScope -ModuleName $script:moduleName {
                 }
             }
 
-            
+
             Context 'Invoking with Ensure Absent and existing ResourcePool' {
                 BeforeAll {
                     # Arrange

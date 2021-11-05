@@ -87,7 +87,7 @@ class ResourcePool : BaseDSC {
     #>
     [DscProperty()]
     [long] $MemReservationGB = 0
-    
+
     <#
     .DESCRIPTION
 
@@ -99,7 +99,7 @@ class ResourcePool : BaseDSC {
     <#
     .DESCRIPTION
 
-    Specifies the memory allocation level for the resource pool. 
+    Specifies the memory allocation level for the resource pool.
     This parameter is ignored unless MemSharesLevel is set to Custom.
     #>
     [DscProperty()]
@@ -108,7 +108,7 @@ class ResourcePool : BaseDSC {
     <#
     .DESCRIPTION
 
-    Specifies the CPU allocation level for the resource pool. 
+    Specifies the CPU allocation level for the resource pool.
     This DSC property is ignored unless CpuSharesLevel is set to Custom.
     #>
     [DscProperty()]
@@ -121,7 +121,7 @@ class ResourcePool : BaseDSC {
     #>
     [DscProperty(Mandatory)]
     [Ensure] $Ensure
-    
+
     <#
     .DESCRIPTION
 
@@ -212,7 +212,7 @@ class ResourcePool : BaseDSC {
             $result = [ResourcePool]::new()
             $result.Server = $this.Server
             $result.ResourcePoolLocation = $this.ResourcePoolLocation
-            $result.ResourcePoolName = $this.ResourcePoolName            
+            $result.ResourcePoolName = $this.ResourcePoolName
 
             $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $this.ResourcePoolLocation)
 
@@ -265,7 +265,7 @@ class ResourcePool : BaseDSC {
 
         return ($shouldUpdateResourcePool -Contains $true)
     }
- 
+
     <#
     .DESCRIPTION
 
@@ -301,7 +301,7 @@ class ResourcePool : BaseDSC {
         $resourcePoolParams.Server = $this.Connection
         $resourcePoolParams.Confirm = $false
         $resourcePoolParams.ErrorAction = 'Stop'
-        
+
         $this.PopulateResourcePoolParams($resourcePoolParams, $this.CpuExpandableReservationParameterName, $this.CpuExpandableReservation)
         $this.PopulateResourcePoolParams($resourcePoolParams, $this.CpuLimitMHzParameterName, $this.CpuLimitMHz)
         $this.PopulateResourcePoolParams($resourcePoolParams, $this.CpuReservationMHzParameterName, $this.CpuReservationMHz)
@@ -329,7 +329,7 @@ class ResourcePool : BaseDSC {
     [void] AddResourcePool($parent) {
         $resourcePoolParams = $this.GetResourcePoolParams()
         $resourcePoolParams.Name = $this.ResourcePoolName
-        $resourcePoolParams.Location = $parent        
+        $resourcePoolParams.Location = $parent
 
         try {
             New-ResourcePool @resourcePoolParams
