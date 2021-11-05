@@ -45,8 +45,9 @@ class InventoryUtil {
     hidden [string] $CouldNotFindFolderMessage = "Could not find Folder {0} located in Folder {1}."
     hidden [string] $CouldNotFindInventoryItemMessage = "Could not find Inventory Item {0} located in Inventory Item {1}."
     hidden [string] $CouldNotFindDatastoreClusterMessage = "Could not find Datastore Cluster {0} located in Folder {1}."
-    hidden [string] $CouldNotFindResourcePool = "Could not find ResourcePool {0}. For more information {1}."
+    hidden [string] $CouldNotFindResourcePool = "Could not find ResourcePool {0}. For more information {1}"
     hidden [string] $CouldNotFindResourcePoolLocation = "Could not find ResourcePool location {0}. For more information {1}."
+    hidden [string] $ResourcePoolLocationIsEmptyString = "ResourcePoolLocation cannot be empty string."
 
     <#
     .DESCRIPTION
@@ -435,6 +436,9 @@ class InventoryUtil {
     Retrieves the Resource pool location
     #>
     [PSObject] GetResourcePoolParent($resourcePoolLocation){
+        if ($resourcePoolLocation -eq [string]::Empty) {
+            throw $this.ResourcePoolLocationIsEmptyString
+        }
         $locationItems = $resourcePoolLocation.Split('/')
         $parent = Get-Inventory -Name $locationItems[0] -Server $this.VIServer
         try {
@@ -454,9 +458,7 @@ class InventoryUtil {
     If the resource pool does not exist and Ensure is set to 'Absent', $null is returned.
     Otherwise the method throws an exception.
     #>
-    [PSObject] GetResourcePool($ResourcePoolName, $resourcePoolLocation){
-        $parent = $this.GetResourcePoolParent($resourcePoolLocation)
-
+    [PSObject] GetResourcePool($ResourcePoolName, $parent){
         $getResourcePoolParams = @{
             Location = $parent
             Name = $ResourcePoolName

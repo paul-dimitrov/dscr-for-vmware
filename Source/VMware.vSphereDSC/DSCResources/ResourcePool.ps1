@@ -155,11 +155,11 @@ class ResourcePool : BaseDSC {
         try {
             $this.ConnectVIServer()
             $this.InitInventoryUtil()
-            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $this.ResourcePoolLocation)
+            $parent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
+            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $parent)
             if ($this.Ensure -eq [Ensure]::Present) {
                 if ($null -eq $resourcePool) {
-                    $resourcePoolParent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
-                    $this.AddResourcePool($resourcePoolParent)
+                    $this.AddResourcePool($parent)
                 }
                 else {
                     $this.UpdateResourcePool($resourcePool)
@@ -181,7 +181,8 @@ class ResourcePool : BaseDSC {
             $this.ConnectVIServer()
 
             $this.InitInventoryUtil()
-            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $this.ResourcePoolLocation)
+            $parent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
+            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $parent)
             $result = $null
             if ($this.Ensure -eq [Ensure]::Present) {
                 if ($null -eq $resourcePool) {
@@ -214,7 +215,8 @@ class ResourcePool : BaseDSC {
             $result.ResourcePoolLocation = $this.ResourcePoolLocation
             $result.ResourcePoolName = $this.ResourcePoolName
 
-            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $this.ResourcePoolLocation)
+            $parent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
+            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $parent)
 
             $this.PopulateResult($resourcePool, $result)
 
