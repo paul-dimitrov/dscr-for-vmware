@@ -15,23 +15,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #>
 
 [DscResource()]
-class ResourcePool : BaseDSC {
-    <#
-    .DESCRIPTION
-
-    Specifies the name of the resource pool.
-    #>
-    [DscProperty(Key)]
-    [string] $ResourcePoolName
-
-    <#
-    .DESCRIPTION
-
-    Specifies the location of the resource pool. For nested location as a separator use '/'
-    #>
-    [DscProperty(Key)]
-    [string] $ResourcePoolLocation
-
+class ResourcePool : InventoryBaseDSC   {
     <#
     .DESCRIPTION
 
@@ -117,14 +101,6 @@ class ResourcePool : BaseDSC {
     <#
     .DESCRIPTION
 
-    Specifies whether the DRS rule should be present or absent.
-    #>
-    [DscProperty(Mandatory)]
-    [Ensure] $Ensure
-
-    <#
-    .DESCRIPTION
-
     Specifies the instance of the 'InventoryUtil' class that is used
     for Inventory operations.
     #>
@@ -155,8 +131,8 @@ class ResourcePool : BaseDSC {
         try {
             $this.ConnectVIServer()
             $this.InitInventoryUtil()
-            $parent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
-            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $parent)
+            $parent = $this.InventoryUtil.GetResourcePoolParent($this.Location)
+            $resourcePool = $this.InventoryUtil.GetResourcePool($this.Name, $parent)
             if ($this.Ensure -eq [Ensure]::Present) {
                 if ($null -eq $resourcePool) {
                     $this.AddResourcePool($parent)
@@ -181,8 +157,8 @@ class ResourcePool : BaseDSC {
             $this.ConnectVIServer()
 
             $this.InitInventoryUtil()
-            $parent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
-            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $parent)
+            $parent = $this.InventoryUtil.GetResourcePoolParent($this.Location)
+            $resourcePool = $this.InventoryUtil.GetResourcePool($this.Name, $parent)
             $result = $null
             if ($this.Ensure -eq [Ensure]::Present) {
                 if ($null -eq $resourcePool) {
@@ -212,11 +188,11 @@ class ResourcePool : BaseDSC {
 
             $result = [ResourcePool]::new()
             $result.Server = $this.Server
-            $result.ResourcePoolLocation = $this.ResourcePoolLocation
-            $result.ResourcePoolName = $this.ResourcePoolName
+            $result.Location = $this.Location
+            $result.Name = $this.Name
 
-            $parent = $this.InventoryUtil.GetResourcePoolParent($this.ResourcePoolLocation)
-            $resourcePool = $this.InventoryUtil.GetResourcePool($this.ResourcePoolName, $parent)
+            $parent = $this.InventoryUtil.GetResourcePoolParent($this.Location)
+            $resourcePool = $this.InventoryUtil.GetResourcePool($this.Name, $parent)
 
             $this.PopulateResult($resourcePool, $result)
 
@@ -330,7 +306,7 @@ class ResourcePool : BaseDSC {
     #>
     [void] AddResourcePool($parent) {
         $resourcePoolParams = $this.GetResourcePoolParams()
-        $resourcePoolParams.Name = $this.ResourcePoolName
+        $resourcePoolParams.Name = $this.Name
         $resourcePoolParams.Location = $parent
 
         try {
@@ -379,7 +355,7 @@ class ResourcePool : BaseDSC {
 
     [void] PopulateResult($resourcePool, $result) {
         if ($null -ne $resourcePool) {
-            $result.ResourcePoolName = $resourcePool.Name
+            $result.Name = $resourcePool.Name
             $result.Ensure = [Ensure]::Present
             $result.CpuExpandableReservation = $resourcePool.CpuExpandableReservation
             $result.CpuLimitMHz = $resourcePool.CpuLimitMHz
@@ -393,7 +369,7 @@ class ResourcePool : BaseDSC {
             $result.NumMemShares = $resourcePool.NumMemShares
         }
         else {
-            $result.ResourcePoolName = $this.ResourcePoolName
+            $result.Name = $this.Name
             $result.Ensure = [Ensure]::Absent
             $result.CpuExpandableReservation = $this.CpuExpandableReservation
             $result.CpuLimitMHz = $this.CpuLimitMHz

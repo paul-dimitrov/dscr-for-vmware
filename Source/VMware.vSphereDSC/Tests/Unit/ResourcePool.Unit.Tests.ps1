@@ -61,7 +61,7 @@ InModuleScope -ModuleName $script:moduleName {
                     # Assert
                     $assertMockCalledParams = @{
                         CommandName = 'New-ResourcePool'
-                        ParameterFilter = { $Server -eq $script:viServer -and $Name -eq $resourceProperties.ResourcePoolName -and $Location -eq $script:resourcePool -and !$Confirm }
+                        ParameterFilter = { $Server -eq $script:viServer -and $Name -eq $resourceProperties.Name -and $Location -eq $script:resourcePool -and !$Confirm }
                         Exactly = $true
                         Times = 1
                         Scope = 'It'
@@ -635,8 +635,8 @@ InModuleScope -ModuleName $script:moduleName {
                     # Assert
                     $result.Ensure | Should -Be 'Absent'
                     $result.Server | Should -Be $resourceProperties.Server
-                    $result.ResourcePoolName | Should -Be $resourceProperties.ResourcePoolName
-                    $result.ResourcePoolLocation | Should -Be $resourceProperties.ResourcePoolLocation
+                    $result.Name | Should -Be $resourceProperties.Name
+                    $result.Location | Should -Be $resourceProperties.Location
                     $result.CpuExpandableReservation | Should -Be $resourceProperties.CpuExpandableReservation
                     $result.CpuLimitMHz | Should -Be $resourceProperties.CpuLimitMHz
                     $result.CpuReservationMHz | Should -Be $resourceProperties.CpuReservationMHz
@@ -671,8 +671,8 @@ InModuleScope -ModuleName $script:moduleName {
 
                     # Assert
                     $result.Server | Should -Be $resourceProperties.Server
-                    $result.ResourcePoolName | Should -Be $resourceProperties.ResourcePoolName
-                    $result.ResourcePoolLocation | Should -Be $resourceProperties.ResourcePoolLocation
+                    $result.Name | Should -Be $resourceProperties.Name
+                    $result.Location | Should -Be $resourceProperties.Location
                     $result.CpuExpandableReservation | Should -Be $resourceProperties.CpuExpandableReservation
                     $result.CpuLimitMHz | Should -Be $resourceProperties.CpuLimitMHz
                     $result.CpuReservationMHz | Should -Be $resourceProperties.CpuReservationMHz
@@ -708,8 +708,8 @@ InModuleScope -ModuleName $script:moduleName {
 
                     # Assert
                     $result.Server | Should -Be $resourceProperties.Server
-                    $result.ResourcePoolName | Should -Be $resourceProperties.ResourcePoolName
-                    $result.ResourcePoolLocation | Should -Be $resourceProperties.ResourcePoolLocation
+                    $result.Name | Should -Be $resourceProperties.Name
+                    $result.Location | Should -Be $resourceProperties.Location
                     $result.CpuExpandableReservation | Should -Be $resourceProperties.CpuExpandableReservation
                     $result.CpuLimitMHz | Should -Be $resourceProperties.CpuLimitMHz
                     $result.CpuReservationMHz | Should -Be $resourceProperties.CpuReservationMHz
@@ -745,8 +745,8 @@ InModuleScope -ModuleName $script:moduleName {
 
                     # Assert
                     $result.Server | Should -Be $resourceProperties.Server
-                    $result.ResourcePoolName | Should -Be $resourceProperties.ResourcePoolName
-                    $result.ResourcePoolLocation | Should -Be $resourceProperties.ResourcePoolLocation
+                    $result.Name | Should -Be $resourceProperties.Name
+                    $result.Location | Should -Be $resourceProperties.Location
                     $result.CpuExpandableReservation | Should -Be $resourceProperties.CpuExpandableReservation
                     $result.CpuLimitMHz | Should -Be $resourceProperties.CpuLimitMHz
                     $result.CpuReservationMHz | Should -Be $resourceProperties.CpuReservationMHz

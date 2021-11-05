@@ -21,9 +21,9 @@ function New-ResourcePoolProperties {
     $resourcePoolProperties = @{
         Server = $script:constants.VIServerName
         Credential = $script:credential
-        ResourcePoolName = $script:constants.ResourcePoolName
+        Name = $script:constants.ResourcePoolName
         Ensure = 'Present'
-        ResourcePoolLocation = "$($script:constants.InventoryItemLocationItemOne)/$($script:constants.InventoryItemLocationItemTwo)"
+        Location = "$($script:constants.InventoryItemLocationItemOne)/$($script:constants.InventoryItemLocationItemTwo)"
     }
 
     $resourcePoolProperties
